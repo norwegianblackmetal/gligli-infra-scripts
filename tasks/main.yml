@@ -1,0 +1,2 @@
+- name: run mongo
+  command: docker run --name mongo -d mongo:4.2.10
