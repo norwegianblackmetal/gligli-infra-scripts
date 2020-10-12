@@ -1,0 +1,2 @@
+python httpd.py &
+mongod
