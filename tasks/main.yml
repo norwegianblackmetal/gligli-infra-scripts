@@ -1,3 +1,31 @@
-- name: run mongo
-  command: docker run --name mongodb -p 27017:27017 -p 28017:28017 -p 27080:27080 -d pymongo:0.1
+- name: ls
+  command: pwd
 
+  #- name: build pymongo:0.1
+  #  command: docker build ~/git/krabkrab-infra-scripts/files/ -t pymongo:0.1
+
+- name: build pymongo
+  docker_image:
+    path: "{{ playbook_dir }}/files"
+    name: pymongo
+    tag: 0.1
+    state: build
+    force: yes
+
+#- name: run mongo
+#  command: docker run --name mongodb -p 27017:27017 -p 28017:28017 -p 27080:27080 -d pymongo:0.1
+
+- name: run mongo
+  docker_container:
+    name: mongodb
+    image: pymongo:0.1
+    recreate: yes
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+      - "27080:27080"
+
+- name: connect mongoose with mongodb
+  uri:
+    url: 'http://localhost:27080/_connect'
+    body: "server=localhost:27017"
