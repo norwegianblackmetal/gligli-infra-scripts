@@ -1,8 +1,11 @@
 provider "aws" {
-  region = "eu-west-2"
+	access_key = ""
+	secret_key = ""
+	region = "eu-west-2"
 }
 
 resource "aws_instance" "gligli_instance" {
-  ami = "ami-06dc09bb8854cbde3"
-  instance_type = "t2.micro"
+  	count = 0
+	ami = "ami-06dc09bb8854cbde3"
+	instance_type = "t2.micro"
 }
